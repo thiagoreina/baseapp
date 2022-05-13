@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+     private storage: StorageService
+     , private router: Router) {}
 
+
+  public logout(){
+    if(this.storage.clear()){
+      this.router.navigateByUrl('login');
+    }
+  }
 }

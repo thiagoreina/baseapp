@@ -1,0 +1,45 @@
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-grid>
+      <ion-row row-no-padding>
+        <ion-col>
+          <div class="ion-text-center" style="padding-top:50px">
+            <ion-img class="ion-text-center img-center" [src]="logo"></ion-img>
+          </div>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="text" ngModel required name="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Senha</ion-label>
+              <ion-input type="password" ngModel required name="password"></ion-input>
+              <ion-button slot="end" fill="clear" class="seeClient">
+                <ion-icon name="eye-outline" color="primary" class="iconEye"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+          <div style="padding-top:10px">
+
+            <ion-button type="submit" color="primary" [disabled]="form.invalid" expand="block">Login</ion-button>
+
+          </div>
+          <ion-grid>
+            <ion-row row-no-padding>
+              <ion-col>
+                <div class="ion-text-start"><a href="">Esqueci minha senha</a></div>
+              </ion-col>
+              <ion-col>
+                <div class="ion-text-end"><a href="">Cadastre-se</a></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <!--  <ion-button (click)='getAll()'  expand="full">get uusers</ion-button>
+          <ion-button (click)='logout()'  expand="full">sair</ion-button>
+       -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
