@@ -27,7 +27,7 @@ export class AppComponent {
 
   async initializeApp() {
     this.platform.ready().then(() => {
-      this.init
+     // this.init
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -45,6 +45,6 @@ async init(){
   })
 }
   async ngOnInit() {
-    this.init()
+   // this.init()
   }
 }

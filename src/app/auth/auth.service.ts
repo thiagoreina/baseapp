@@ -9,6 +9,7 @@ import { User } from './user';
 import { AuthResponse } from './auth-response';
 import { AppModule } from '../app.module';
 import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -18,6 +19,7 @@ export class AuthService {
   private AUTH_SERVER_ADDRESS: string = environment.apiURL
 
   authSubject = new BehaviorSubject(false);
+  private jwtHelper = new JwtHelperService();
 
   constructor(
     private httpClient: HttpClient
@@ -123,8 +125,9 @@ export class AuthService {
   async logout() {
     await this.storage.clear();
     console.log('logout')
-    this.router.navigateByUrl('login');
+    //this.router.navigateByUrl('login');
     this.authSubject.next(false);
+    //this.logoutBD()
   }
 
   logoutBD() {
@@ -139,5 +142,31 @@ export class AuthService {
   isLoggedIn() {
     //return this.authSubject.asObservable();
     return this.authSubject.value;
+  }
+
+  public async isAuthenticated(): Promise<boolean> {
+    let dataUser: any = await this.getStorage('ACCESS_TOKEN')//localStorage.getItem('login');
+    console.log('dataUser', dataUser)
+   // dataUser = JSON.parse(dataUser)
+    if (!dataUser) {
+      return false
+    }
+    if(!this.jwtHelper.isTokenExpired(dataUser.token))
+    return  false;
+
+    return true
+  }
+
+  async getStorage(key) {
+    var dataStore
+     await this.storage.get(key).then(data => {
+       console.log("data",data)
+       dataStore = data
+      
+    })
+
+    if(dataStore)
+    return true
+    return false 
   }
 }
